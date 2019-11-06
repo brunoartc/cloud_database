@@ -12,7 +12,9 @@ async function insertToDo(data) {
     return new Promise(function(resolve, reject) {
         global.conn.collection("todo").insertOne(data, (error, resp) => {
             if (error) {
-                reject({ "status": "error", "data": error })
+                resolve({ "status": "error", "data": error })
+            } else {
+                resolve({ "status": "succes", "data": "DATAINSERTED" })
             }
 
 
@@ -29,15 +31,22 @@ async function insertToDo(data) {
  * @param {String} title - The title of the TODO being deleted
  */
 async function deleteToDo(title) {
+    console.log("deleteTODO");
+
     return new Promise(function(resolve, reject) {
         global.conn.collection("todo").deleteOne({ 'title': title }, (error, resp) => {
             if (error) {
-                reject({
+                resolve({
                     "status": "error",
                     "data": {
                         'error': error,
                         "info": "title needed"
                     }
+                })
+            } else {
+                resolve({
+                    "status": "sucess",
+                    "data": "DELETED"
                 })
             }
 

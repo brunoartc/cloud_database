@@ -17,8 +17,8 @@ router.post('/', function(req, res, next) {
 });
 
 
-router.delete('/', function(req, res, next) {
-    let { title } = req.body;
+router.delete('/:title', function(req, res, next) {
+    let { title } = req.params;
     todo.deleteToDo(title).then((resp) => res.send(resp)).catch((err) => console.log(err))
 });
 
